@@ -1,0 +1,42 @@
+﻿CREATE TABLE IF NOT EXISTS [Magazines] (
+[magazine_id] INTEGER  NOT NULL PRIMARY KEY,
+[magazine_name] TEXT  UNIQUE NULL
+);
+
+CREATE TABLE IF NOT EXISTS [Recipes] (
+[Recipe_id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
+[recipe_name] TEXT  NULL,
+[page_number] INTEGER  NULL,
+[author] NVARCHAR(20)  NULL,
+[magazine_id] INTEGER  NULL,
+[issue_month] INTEGER  NULL,
+[section_id] INTEGER  NULL,
+[Comments] TEXT  NULL,
+[rating] INTEGER DEFAULT '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''0''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' NULL,
+[issue_year] NVARCHAR(6)  NULL,
+[method] TEXT  NULL
+);
+
+CREATE TABLE IF NOT EXISTS [Sections] (
+[section_id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[section_name] TEXT  NULL
+);
+
+
+
+CREATE TABLE IF NOT EXISTS [ingredient_types] (
+[ingredient_type_code] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[ingredient_type_discription] VARCHAR(20)  NULL
+);
+
+CREATE TABLE IF NOT EXISTS [ingredients] (
+[ingredient_id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[ingredient_type_code] INTEGER  NULL,
+[ingredient_name] VARCHAR(30)  UNIQUE NULL
+);
+
+CREATE TABLE IF NOT EXISTS [recipe_ingredients] (
+[recipe_id] INTEGER  NULL,
+[ingredient_id] INTEGER  NULL,
+[amout] TEXT  NULL
+);
