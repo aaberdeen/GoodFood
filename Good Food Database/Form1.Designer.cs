@@ -56,8 +56,13 @@
             this.Namelbl = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createNewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxYearFilter = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -70,7 +75,8 @@
             this.buttonGo = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxSourceFilter = new System.Windows.Forms.ComboBox();
-            this.createNewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.addNewSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.recipeDataGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageAddNew.SuspendLayout();
@@ -341,18 +347,51 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(795, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.createNewDatabaseToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // createNewDatabaseToolStripMenuItem
+            // 
+            this.createNewDatabaseToolStripMenuItem.Name = "createNewDatabaseToolStripMenuItem";
+            this.createNewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.createNewDatabaseToolStripMenuItem.Text = "Create New Database";
+            this.createNewDatabaseToolStripMenuItem.Click += new System.EventHandler(this.createNewDatabaseToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewSourceToolStripMenuItem,
-            this.createNewDatabaseToolStripMenuItem});
+            this.addNewSectionToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -363,6 +402,12 @@
             this.addNewSourceToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.addNewSourceToolStripMenuItem.Text = "Add New Source";
             this.addNewSourceToolStripMenuItem.Click += new System.EventHandler(this.addNewSourceToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // groupBox1
             // 
@@ -480,12 +525,16 @@
             this.comboBoxSourceFilter.TabIndex = 0;
             this.comboBoxSourceFilter.Click += new System.EventHandler(this.comboBoxSourceFilter_Click);
             // 
-            // createNewDatabaseToolStripMenuItem
+            // openFileDialog1
             // 
-            this.createNewDatabaseToolStripMenuItem.Name = "createNewDatabaseToolStripMenuItem";
-            this.createNewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.createNewDatabaseToolStripMenuItem.Text = "Create New Database";
-            this.createNewDatabaseToolStripMenuItem.Click += new System.EventHandler(this.createNewDatabaseToolStripMenuItem_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // addNewSectionToolStripMenuItem
+            // 
+            this.addNewSectionToolStripMenuItem.Name = "addNewSectionToolStripMenuItem";
+            this.addNewSectionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.addNewSectionToolStripMenuItem.Text = "Add New Section";
+            this.addNewSectionToolStripMenuItem.Click += new System.EventHandler(this.addNewSectionToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -559,7 +608,13 @@
         private System.Windows.Forms.TextBox textBoxYearFilter;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createNewDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem addNewSectionToolStripMenuItem;
     }
 }
 

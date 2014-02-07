@@ -22,6 +22,7 @@ namespace Good_Food_Database
         DataTable Mags;
         DataTable Sections;
         SQLITE db;
+        private string _fileName;
 
         List<Recipe> recipeList = new List<Recipe>();
 
@@ -32,12 +33,16 @@ namespace Good_Food_Database
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db"; 
-            db = new SQLITE(dbConnection);
-            Mags = db.GetDataTable("Magazines");
-            Sections = db.GetDataTable("Sections");
-            recipe = db.GetDataTable("Recipes");
-            updateForm();
+            //string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db"; 
+
+            if (_fileName != "")
+            {
+                db = new SQLITE(_fileName);
+                Mags = db.GetDataTable("Magazines");
+                Sections = db.GetDataTable("Sections");
+                recipe = db.GetDataTable("Recipes");
+                updateForm();
+            }
         }
 
 
@@ -157,18 +162,17 @@ namespace Good_Food_Database
 
 
 
-                recipeTemp.recipeCard.Text = string.Format("{0}", i + 1);
+                recipeTemp.recipeCard.Text = recipeTemp.recipeCard.recipe_ID;//string.Format("{0}", i + 1);
                 recipeList.Add(recipeTemp);
 
             }
 
+            int j = 0;
             foreach (Recipe res in recipeList)
             {
-                TabPage temp = res.recipeCard as TabPage;
-
-                tabControl1.TabPages.Add(res.recipeCard);
-                //res.recipeCard.Parent = tabControl1;
+              tabControl1.TabPages.Insert(j++,res.recipeCard);
             }
+            tabControl1.SelectedIndex = 0;
         }
 
         private void Row_Changed(object sender, DataRowChangeEventArgs e)
@@ -217,8 +221,8 @@ namespace Good_Food_Database
         {
             //db = new SQLiteDatabase();
 
-            string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db";
-            db = new SQLITE(dbConnection);
+           // string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db";
+            db = new SQLITE(_fileName);
 
 
            // Dictionary<String, String> data = new Dictionary<String, String>();
@@ -356,6 +360,8 @@ namespace Good_Food_Database
 
         }
 
+
+
         private void comboBoxSourceFilter_Click(object sender, EventArgs e)
         {
             ComboBox temp = sender as ComboBox;
@@ -438,6 +444,50 @@ namespace Good_Food_Database
             dataBaseCreationForm dbCreate = new dataBaseCreationForm();
             dbCreate.Show();
         }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dbConnection = "";
+
+            openFileDialog1.DefaultExt = "*.s3db";
+            openFileDialog1.AddExtension = true;
+            openFileDialog1.Filter = "SQLite3 DB |*.s3db";
+            openFileDialog1.ShowDialog();
+            if (openFileDialog1.FileName != "")
+            {
+                _fileName = openFileDialog1.FileName;
+                dbConnection = _fileName;
+            }
+            
+
+            
+           // string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db";
+            db = new SQLITE(dbConnection);
+            Mags = db.GetDataTable("Magazines");
+            Sections = db.GetDataTable("Sections");
+            recipe = db.GetDataTable("Recipes");
+            updateForm();
+        }
+
+        private void addNewSectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Dictionary<String, String> data = new Dictionary<String, String>();
+            
+            InputBox ip = new InputBox();
+            DialogResult result = ip.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                data.Add("section_name", ip.UserInput);
+                db.Insert("Sections", data);
+            }
+        }
+
+  
 
 
     }

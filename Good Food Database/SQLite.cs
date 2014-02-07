@@ -35,20 +35,23 @@ namespace Good_Food_Database
             return row_updated;
         }
         public DataTable GetDataTable(string tablename)
-        {
-            DataTable DT = new DataTable();
-            con.Open();
-            cmd = con.CreateCommand();
-            cmd.CommandText = string.Format("SELECT * FROM {0}", tablename);
-           // cmd.CommandText = string.Format("select magazine_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, Magazines where recipes.magazine_id = Magazines.magazine_id");
-            adapter = new SQLiteDataAdapter(cmd);
-            adapter.AcceptChangesDuringFill = false;
-            adapter.Fill(DT);
-            con.Close();
-            DT.TableName = tablename;
-            foreach (DataRow row in DT.Rows)
+        {DataTable DT = new DataTable();
+            if (con.ConnectionString != "")
             {
-                row.AcceptChanges();
+                
+                con.Open();
+                cmd = con.CreateCommand();
+                cmd.CommandText = string.Format("SELECT * FROM {0}", tablename);
+                // cmd.CommandText = string.Format("select magazine_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, Magazines where recipes.magazine_id = Magazines.magazine_id");
+                adapter = new SQLiteDataAdapter(cmd);
+                adapter.AcceptChangesDuringFill = false;
+                adapter.Fill(DT);
+                con.Close();
+                DT.TableName = tablename;
+                foreach (DataRow row in DT.Rows)
+                {
+                    row.AcceptChanges();
+                }
             }
             return DT;
         }
