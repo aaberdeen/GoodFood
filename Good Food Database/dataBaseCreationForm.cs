@@ -12,7 +12,8 @@ namespace Good_Food_Database
 {
     public partial class dataBaseCreationForm : Form
     {
-        private string _fileName;
+        //private string _fileName;
+       
         public dataBaseCreationForm()
         {
             InitializeComponent();
@@ -26,17 +27,51 @@ namespace Good_Food_Database
             saveFileDialog1.ShowDialog();
             if (saveFileDialog1.FileName != "")
             {
-                _fileName = saveFileDialog1.FileName;
-                textBoxFileLocation.Text = _fileName;
+               // _fileName = saveFileDialog1.FileName;
+                Properties.Settings.Default.fileName = saveFileDialog1.FileName;
+                Properties.Settings.Default.Save();
+                textBoxFileLocation.Text = Properties.Settings.Default.fileName;
+                
             }
         }
 
         private void buttonCreateDataBase_Click(object sender, EventArgs e)
         {
-            SQLiteConnection.CreateFile(_fileName);
-            SQLITE db = new SQLITE(_fileName);
+            SQLiteConnection.CreateFile(Properties.Settings.Default.fileName);
+            SQLITE db = new SQLITE(Properties.Settings.Default.fileName);
             db.executeScript("CreateTableScript.txt");
-            
+
+            addSection(db, "Poultry & Game");
+            addSection(db, "Starters, drinks and dips");
+            addSection(db, "Fish & Seafood");
+            addSection(db, "Soups, Salads, Sides & Drinks");
+            addSection(db, "Meat");
+            addSection(db, "Vegetarian dishes");
+            addSection(db, "Vegetarian dishes");
+            addSource(db, "BBC Good Food");
+
+            this.Close();
+        }
+
+        private void addSection(SQLITE db, string section)
+        {
+            Dictionary<String, String> data = new Dictionary<String, String>();
+
+
+            if (section != "")
+            {
+                data.Add("section_name", section);
+                db.Insert("Sections", data);
+            }
+        }
+        private void addSource(SQLITE db, string source)
+        {
+            Dictionary<String, String> data = new Dictionary<String, String>();
+            if (source != "")
+            {
+                data.Add("source_name", source);
+                db.Insert("source", data);
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Good_Food_Database
                 con.Open();
                 cmd = con.CreateCommand();
                 cmd.CommandText = string.Format("SELECT * FROM {0}", tablename);
-                // cmd.CommandText = string.Format("select magazine_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, Magazines where recipes.magazine_id = Magazines.magazine_id");
+                // cmd.CommandText = string.Format("select source_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, source where recipes.source_id = source.source_id");
                 adapter = new SQLiteDataAdapter(cmd);
                 adapter.AcceptChangesDuringFill = false;
                 adapter.Fill(DT);
@@ -61,7 +61,7 @@ namespace Good_Food_Database
             con.Open();
             cmd = con.CreateCommand();
 
-            // select * from recipes where magazine_id like "3"
+            // select * from recipes where source_id like "3"
 
             cmd.CommandText = string.Format("SELECT * FROM {0} where {1}", tablename, where[0]);
 
@@ -73,7 +73,7 @@ namespace Good_Food_Database
                 }
                 
             }
-            // cmd.CommandText = string.Format("select magazine_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, Magazines where recipes.magazine_id = Magazines.magazine_id");
+            // cmd.CommandText = string.Format("select source_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, source where recipes.source_id = source.source_id");
             adapter = new SQLiteDataAdapter(cmd);
             adapter.AcceptChangesDuringFill = false;
             adapter.Fill(DT);
@@ -92,7 +92,7 @@ namespace Good_Food_Database
                 con.Open();
                 cmd = con.CreateCommand();
                 cmd.CommandText = string.Format("SELECT * FROM {0}", DT.TableName);
-                //cmd.CommandText = string.Format("select magazine_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, Magazines where recipes.magazine_id = Magazines.magazine_id");
+                //cmd.CommandText = string.Format("select source_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, source where recipes.source_id = source.source_id");
                 adapter = new SQLiteDataAdapter(cmd);
                 SQLiteCommandBuilder builder = new SQLiteCommandBuilder(adapter);
                 adapter.Update(DT);

@@ -62,8 +62,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxFilter = new System.Windows.Forms.GroupBox();
             this.textBoxYearFilter = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -76,12 +77,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxSourceFilter = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.addNewSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.recipeDataGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageAddNew.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLoad
@@ -117,6 +117,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPageAddNew);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(12, 100);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -386,6 +387,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -399,9 +401,16 @@
             // addNewSourceToolStripMenuItem
             // 
             this.addNewSourceToolStripMenuItem.Name = "addNewSourceToolStripMenuItem";
-            this.addNewSourceToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.addNewSourceToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.addNewSourceToolStripMenuItem.Text = "Add New Source";
             this.addNewSourceToolStripMenuItem.Click += new System.EventHandler(this.addNewSourceToolStripMenuItem_Click);
+            // 
+            // addNewSectionToolStripMenuItem
+            // 
+            this.addNewSectionToolStripMenuItem.Name = "addNewSectionToolStripMenuItem";
+            this.addNewSectionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.addNewSectionToolStripMenuItem.Text = "Add New Section";
+            this.addNewSectionToolStripMenuItem.Click += new System.EventHandler(this.addNewSectionToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -409,25 +418,26 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // groupBox1
+            // groupBoxFilter
             // 
-            this.groupBox1.Controls.Add(this.textBoxYearFilter);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.comboBoxMonthFilter);
-            this.groupBox1.Controls.Add(this.Sectionlbl);
-            this.groupBox1.Controls.Add(this.comboBoxSectionFilter);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.textBoxRatingFilter);
-            this.groupBox1.Controls.Add(this.buttonGo);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.comboBoxSourceFilter);
-            this.groupBox1.Location = new System.Drawing.Point(0, 27);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(795, 67);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filter";
+            this.groupBoxFilter.Controls.Add(this.textBoxYearFilter);
+            this.groupBoxFilter.Controls.Add(this.label14);
+            this.groupBoxFilter.Controls.Add(this.label13);
+            this.groupBoxFilter.Controls.Add(this.comboBoxMonthFilter);
+            this.groupBoxFilter.Controls.Add(this.Sectionlbl);
+            this.groupBoxFilter.Controls.Add(this.comboBoxSectionFilter);
+            this.groupBoxFilter.Controls.Add(this.label8);
+            this.groupBoxFilter.Controls.Add(this.textBoxRatingFilter);
+            this.groupBoxFilter.Controls.Add(this.buttonGo);
+            this.groupBoxFilter.Controls.Add(this.label7);
+            this.groupBoxFilter.Controls.Add(this.comboBoxSourceFilter);
+            this.groupBoxFilter.Enabled = false;
+            this.groupBoxFilter.Location = new System.Drawing.Point(0, 27);
+            this.groupBoxFilter.Name = "groupBoxFilter";
+            this.groupBoxFilter.Size = new System.Drawing.Size(795, 67);
+            this.groupBoxFilter.TabIndex = 5;
+            this.groupBoxFilter.TabStop = false;
+            this.groupBoxFilter.Text = "Filter";
             // 
             // textBoxYearFilter
             // 
@@ -529,19 +539,12 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // addNewSectionToolStripMenuItem
-            // 
-            this.addNewSectionToolStripMenuItem.Name = "addNewSectionToolStripMenuItem";
-            this.addNewSectionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.addNewSectionToolStripMenuItem.Text = "Add New Section";
-            this.addNewSectionToolStripMenuItem.Click += new System.EventHandler(this.addNewSectionToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 588);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonUpdate);
@@ -557,8 +560,8 @@
             this.tabPageAddNew.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxFilter.ResumeLayout(false);
+            this.groupBoxFilter.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -587,7 +590,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNewSourceToolStripMenuItem;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxFilter;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBoxSourceFilter;
         private System.Windows.Forms.Button buttonGo;

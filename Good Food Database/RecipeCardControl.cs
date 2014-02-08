@@ -13,14 +13,14 @@ namespace Good_Food_Database
     {
         private SQLITE _db;
 
-        public RecipeCardControl(DataTable Mags,DataTable Sections, SQLITE db)
+        public RecipeCardControl(DataTable Source,DataTable Sections, SQLITE db)
         {
             InitializeComponent();
             _db = db;
-             for (int i = 0; i < Mags.Rows.Count; i++)
+             for (int i = 0; i < Source.Rows.Count; i++)
             {
 
-               comboBoxSource.Items.Add(Mags.Rows[i]["magazine_name"]);
+               comboBoxSource.Items.Add(Source.Rows[i]["source_name"]);
                 
             }
              for (int i = 0; i < Sections.Rows.Count; i++)
@@ -72,7 +72,7 @@ namespace Good_Food_Database
             get { return textBoxAuthor.Text; }
             set { textBoxAuthor.Text = value; }
         }
-        public int magazine_id
+        public int source_id
         {
             get { return  comboBoxSource.SelectedIndex; }
             set { comboBoxSource.SelectedIndex = value; }
@@ -113,7 +113,7 @@ namespace Good_Food_Database
             
             Dictionary<String, String> data = new Dictionary<String, String>();
             data.Add("Recipe_Name", textBoxName.Text);
-            data.Add("magazine_id", Convert.ToString(comboBoxSource.SelectedIndex));
+            data.Add("source_id", Convert.ToString(comboBoxSource.SelectedIndex));
             data.Add("page_number", textBoxPage.Text);
             data.Add("section_id", Convert.ToString(comboBoxSection.SelectedIndex));
             data.Add("author", textBoxAuthor.Text);

@@ -22,5 +22,17 @@ namespace Good_Food_Database.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fileName {
+            get {
+                return ((string)(this["fileName"]));
+            }
+            set {
+                this["fileName"] = value;
+            }
+        }
     }
 }

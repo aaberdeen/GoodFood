@@ -19,7 +19,7 @@ namespace Good_Food_Database
         //SQLiteDatabase db;
        // SQLiteConnection db;
         DataTable recipe;
-        DataTable Mags;
+        DataTable Source;
         DataTable Sections;
         SQLITE db;
         private string _fileName;
@@ -35,10 +35,10 @@ namespace Good_Food_Database
         {
             //string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db"; 
 
-            if (_fileName != "")
+            if (Properties.Settings.Default.fileName != "")
             {
-                db = new SQLITE(_fileName);
-                Mags = db.GetDataTable("Magazines");
+                db = new SQLITE(Properties.Settings.Default.fileName);
+                Source = db.GetDataTable("source");
                 Sections = db.GetDataTable("Sections");
                 recipe = db.GetDataTable("Recipes");
                 updateForm();
@@ -49,60 +49,15 @@ namespace Good_Food_Database
 
         private void button1_Click(object sender, EventArgs e)
         {
+            LoadAll();
+        }
+
+        private void LoadAll()
+        {
             try
             {
-                //db = new SQLiteDatabase();
-
-               // string dbConnection = @"Data Source=C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db";
-               // string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db"; 
-               // db = new SQLITE(dbConnection);
-             
-                           
-               // String query = "select * from Recipes";
-
-
-
                 recipe = db.GetDataTable("Recipes");
-
-                //recipe.RowChanged += new DataRowChangeEventHandler(Row_Changed);
-                // The results can be directly applied to a DataGridView control
-
                 updateForm();
-                
-
-
-                //foreach (DataRowCollection recipeRow in recipe.Rows)
-                //{
-                //    Recipe recipeTemp = new Recipe();
-                //    recipeTemp.recipe_id = recipeRow
-
-                //    // add a recoipe card to a list and then we can populate the cards from the list.
-                    
-                //   // tabControl1.TabPages.Add("test");
-                //    recipeCard.Parent = tabControl1;
-                //}
-                /*
-
-                // Or looped through for some other reason
-
-                foreach (DataRow r in recipe.Rows)
-
-                {
-
-                    MessageBox.Show(r["Name"].ToString());
-
-                    MessageBox.Show(r["Description"].ToString());
-
-                    MessageBox.Show(r["Prep Time"].ToString());
-
-                    MessageBox.Show(r["Cooking Time"].ToString());
-
-                }
-
-   
-
-                */
-
             }
 
             catch (Exception fail)
@@ -122,7 +77,8 @@ namespace Good_Food_Database
         private void updateForm()
         {
             recipeDataGrid.DataSource = recipe;
-
+            groupBoxFilter.Enabled = true;
+            tabControl1.Enabled = true;
 
 
             foreach (TabPage page in tabControl1.TabPages)
@@ -137,7 +93,7 @@ namespace Good_Food_Database
 
             for (int i = 0; i < recipe.Rows.Count; i++)
             {
-                Recipe recipeTemp = new Recipe(Mags,Sections, db);
+                Recipe recipeTemp = new Recipe(Source,Sections, db);
                 recipeTemp.recipe_id = Convert.ToInt32(recipe.Rows[i]["Recipe_id"]);
                 recipeTemp.recipe_name = recipe.Rows[i]["recipe_name"].ToString();
                 
@@ -149,7 +105,7 @@ namespace Good_Food_Database
                 recipeTemp.recipeCard.recipe_Name = recipeTemp.recipe_name;
                 recipeTemp.recipeCard.page_number = recipe.Rows[i]["page_number"].ToString();
                 recipeTemp.recipeCard.author = recipe.Rows[i]["author"].ToString();
-                recipeTemp.recipeCard.magazine_id = Convert.ToInt32(recipe.Rows[i]["magazine_id"].ToString());
+                recipeTemp.recipeCard.source_id = Convert.ToInt32(recipe.Rows[i]["source_id"].ToString());
                 recipeTemp.recipeCard.issue_month = Convert.ToInt32(recipe.Rows[i]["issue_month"].ToString());
 
                 recipeTemp.recipeCard.section_id = Convert.ToInt32(recipe.Rows[i]["section_id"].ToString());  //recipe.Rows[i]["section_id"].ToString();
@@ -222,7 +178,7 @@ namespace Good_Food_Database
             //db = new SQLiteDatabase();
 
            // string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db";
-            db = new SQLITE(_fileName);
+            db = new SQLITE(Properties.Settings.Default.fileName);
 
 
            // Dictionary<String, String> data = new Dictionary<String, String>();
@@ -258,7 +214,7 @@ namespace Good_Food_Database
         {
             Dictionary<String, String> data = new Dictionary<String, String>();
             data.Add("Recipe_Name", textBoxName.Text);
-            data.Add("magazine_id", Convert.ToString(comboBoxSource.SelectedIndex));
+            data.Add("source_id", Convert.ToString(comboBoxSource.SelectedIndex));
             data.Add("page_number", textBoxPage.Text);
             data.Add("section_id", Convert.ToString(comboBoxSection.SelectedIndex));
             data.Add("author", textBoxAuthor.Text);
@@ -267,17 +223,13 @@ namespace Good_Food_Database
             data.Add("issue_year", textBoxYear.Text);
             data.Add("issue_month", Convert.ToString(comboBoxMonth.SelectedIndex));
             data.Add("method", textBoxMethod.Text);
-          //  data.Add("magazine_id", textBoxSource.Text);
+          //  data.Add("source_id", textBoxSource.Text);
             
             //data.Add("issue", textBoxIssue.Text);
-            
-            
-            
-
-
             if (db != null)
             {
                 db.Insert("Recipes", data);
+                LoadAll();
             }
             else
             {
@@ -288,20 +240,20 @@ namespace Good_Food_Database
         private void comboBoxSource_Click(object sender, EventArgs e)
         {
             ComboBox temp = sender as ComboBox;
-            getSources(temp);
+            getsource(temp);
 
         }
 
-        private void getSources(ComboBox temp)
+        private void getsource(ComboBox temp)
         {
             temp.Items.Clear();
 
-            Mags = db.GetDataTable("Magazines");
+            Source = db.GetDataTable("source");
 
-            for (int i = 0; i < Mags.Rows.Count; i++)
+            for (int i = 0; i < Source.Rows.Count; i++)
             {
 
-                temp.Items.Add(Mags.Rows[i]["magazine_name"]);
+                temp.Items.Add(Source.Rows[i]["source_name"]);
             }
         }
 
@@ -353,8 +305,8 @@ namespace Good_Food_Database
             DialogResult result = ip.ShowDialog(this);
             if (result == DialogResult.OK)
             {
-               data.Add("magazine_name", ip.UserInput); 
-                db.Insert("Magazines", data);
+               data.Add("source_name", ip.UserInput); 
+                db.Insert("source", data);
             }
 
 
@@ -365,7 +317,7 @@ namespace Good_Food_Database
         private void comboBoxSourceFilter_Click(object sender, EventArgs e)
         {
             ComboBox temp = sender as ComboBox;
-            getSources(temp);
+            getsource(temp);
         }
 
         private void buttonGo_Click(object sender, EventArgs e)
@@ -377,7 +329,7 @@ namespace Good_Food_Database
 
             if (comboBoxSourceFilter.Text != "")
             {
-                temp = String.Format("magazine_id = {0}", Convert.ToString(comboBoxSourceFilter.SelectedIndex));
+                temp = String.Format("source_id = {0}", Convert.ToString(comboBoxSourceFilter.SelectedIndex));
                 where[i++] = temp;
             }
             if (comboBoxSectionFilter.Text !="")
@@ -452,25 +404,28 @@ namespace Good_Food_Database
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             string dbConnection = "";
 
+            openFileDialog1.FileName = Properties.Settings.Default.fileName;
             openFileDialog1.DefaultExt = "*.s3db";
             openFileDialog1.AddExtension = true;
             openFileDialog1.Filter = "SQLite3 DB |*.s3db";
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName != "")
             {
-                _fileName = openFileDialog1.FileName;
-                dbConnection = _fileName;
+                Properties.Settings.Default.fileName = openFileDialog1.FileName;
+                dbConnection = Properties.Settings.Default.fileName;
             }
             
 
             
            // string dbConnection = @"C:\Users\andy.DDDES\Documents\Visual Studio 2012\Projects\Good Food Database\Good Food Database\SqliteTestDB.s3db";
             db = new SQLITE(dbConnection);
-            Mags = db.GetDataTable("Magazines");
+            Source = db.GetDataTable("source");
             Sections = db.GetDataTable("Sections");
             recipe = db.GetDataTable("Recipes");
+            
             updateForm();
         }
 
@@ -485,6 +440,11 @@ namespace Good_Food_Database
                 data.Add("section_name", ip.UserInput);
                 db.Insert("Sections", data);
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
   

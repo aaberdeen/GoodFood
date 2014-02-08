@@ -1,6 +1,6 @@
-﻿CREATE TABLE IF NOT EXISTS [Magazines] (
-[magazine_id] INTEGER  NOT NULL PRIMARY KEY,
-[magazine_name] TEXT  UNIQUE NULL
+﻿CREATE TABLE IF NOT EXISTS [source] (
+[source_id] INTEGER  NOT NULL PRIMARY KEY,
+[source_name] TEXT  UNIQUE NULL
 );
 
 CREATE TABLE IF NOT EXISTS [Recipes] (
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS [Recipes] (
 [recipe_name] TEXT  NULL,
 [page_number] INTEGER  NULL,
 [author] NVARCHAR(20)  NULL,
-[magazine_id] INTEGER  NULL,
+[source_id] INTEGER  NULL,
 [issue_month] INTEGER  NULL,
 [section_id] INTEGER  NULL,
 [Comments] TEXT  NULL,

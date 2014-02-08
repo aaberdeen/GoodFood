@@ -17,7 +17,7 @@ namespace Good_Food_Database
         private string _recipe_name;
         private int _page_number;
         private string _author;
-        private int _magazine_id;
+        private int _source_id;
         private string _issue;
         private int _section_id;
         private string _comments;
@@ -25,12 +25,9 @@ namespace Good_Food_Database
         public RecipeCardControl recipeCard;
        // private DataTable _Mags;
 
-        public Recipe(DataTable Mags,DataTable Sections, SQLITE db)
+        public Recipe(DataTable Source,DataTable Sections, SQLITE db)
         {
-           // _Mags = Mags;
-            recipeCard = new RecipeCardControl(Mags,Sections, db);
-
-         
+            recipeCard = new RecipeCardControl(Source,Sections, db);
         }
 
 
@@ -60,10 +57,10 @@ namespace Good_Food_Database
             set { _author = value; }
         }
 
-        public int magazine_id
+        public int source_id
         {
-            get { return _magazine_id; }
-            set { _magazine_id = value; }
+            get { return _source_id; }
+            set { _source_id = value; }
         }
         public string issue
         {
