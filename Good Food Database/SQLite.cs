@@ -38,8 +38,11 @@ namespace Good_Food_Database
         {DataTable DT = new DataTable();
             if (con.ConnectionString != "")
             {
-                
-                con.Open();
+
+                if (con.State != ConnectionState.Open)
+                {
+                    con.Open();
+                }
                 cmd = con.CreateCommand();
                 cmd.CommandText = string.Format("SELECT * FROM {0}", tablename);
                 // cmd.CommandText = string.Format("select source_name, recipe_name, page_number, author, issue, section_id,Comments,rating from Recipes, source where recipes.source_id = source.source_id");
@@ -140,15 +143,15 @@ namespace Good_Food_Database
 
             try
             {
-
-                this.ExecuteNonQuery(String.Format("insert into {0}({1}) values({2});", tableName, columns, values));
+                string comand = String.Format("insert into {0}({1}) values({2});", tableName, columns, values);
+                this.ExecuteNonQuery(comand);
 
             }
 
             catch (Exception fail)
             {
 
-                //MessageBox.Show(fail.Message);
+               // MessageBox.Show(fail.Message);
 
                 returnCode = false;
 
@@ -157,6 +160,21 @@ namespace Good_Food_Database
             return returnCode;
 
         }
+
+
+        public void insertSource(String @source)
+        {
+            con.Open();
+            SQLiteCommand command = con.CreateCommand();
+            // http://www.sqlite.org/faq.html#q1
+            command.CommandText = "INSERT into source(source_name) VALUES(@source)";
+            command.Parameters.Add(new SQLiteParameter("@source", @source));
+           
+            command.ExecuteNonQuery();
+            con.Close();
+        }
+
+
         /// <summary>
 
         ///     Allows the programmer to interact with the database for purposes other than a query.
@@ -186,6 +204,8 @@ namespace Good_Food_Database
             return rowsUpdated;
 
         }
+
+      
 
         /// <summary>
 

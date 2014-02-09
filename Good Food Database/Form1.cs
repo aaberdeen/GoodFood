@@ -297,16 +297,31 @@ namespace Good_Food_Database
 
         }
 
+        //private void addNewSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Dictionary<String, String> data = new Dictionary<String, String>();
+            
+        //    InputBox ip = new InputBox();
+        //    DialogResult result = ip.ShowDialog(this);
+        //    if (result == DialogResult.OK)
+        //    {
+        //       data.Add("source_name", ip.UserInput); 
+        //        db.Insert("source", data);
+        //    }
+
+
+        //}
         private void addNewSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Dictionary<String, String> data = new Dictionary<String, String>();
-            
+           // Dictionary<String, String> data = new Dictionary<String, String>();
+
             InputBox ip = new InputBox();
             DialogResult result = ip.ShowDialog(this);
             if (result == DialogResult.OK)
             {
-               data.Add("source_name", ip.UserInput); 
-                db.Insert("source", data);
+               // data.Add("source_name", ip.UserInput);
+               // db.Insert("source", data);
+                db.insertSource(ip.UserInput);
             }
 
 
@@ -445,6 +460,14 @@ namespace Good_Food_Database
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 about = new AboutBox1();
+            
+            about.Show();
+
         }
 
   
