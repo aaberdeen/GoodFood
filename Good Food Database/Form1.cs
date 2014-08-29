@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
-
-
+using System.Threading;
 
 
 namespace Good_Food_Database
@@ -57,7 +56,7 @@ namespace Good_Food_Database
             try
             {
                 recipe = db.GetDataTable("Recipes");
-                updateForm();
+                
             }
 
             catch (Exception fail)
@@ -72,6 +71,8 @@ namespace Good_Food_Database
                 this.Close();
 
             }
+            updateForm();
+
         }
 
         private void updateForm()
@@ -86,6 +87,7 @@ namespace Good_Food_Database
                 if (page.Text != "Add New")
                 {
                     tabControl1.TabPages.Remove(page);
+                    
                 }
             }
             recipeList.Clear();
@@ -93,7 +95,8 @@ namespace Good_Food_Database
 
             for (int i = 0; i < recipe.Rows.Count; i++)
             {
-                Recipe recipeTemp = new Recipe(Source,Sections, db);
+                Recipe recipeTemp = null;
+                 recipeTemp = new Recipe(Source,Sections, db);
                 recipeTemp.recipe_id = Convert.ToInt32(recipe.Rows[i]["Recipe_id"]);
                 recipeTemp.recipe_name = recipe.Rows[i]["recipe_name"].ToString();
                 
@@ -124,8 +127,16 @@ namespace Good_Food_Database
             }
 
             int j = 0;
+
+            Thread.Sleep(100); // don't thing tabs are clearing down fast enough?
+            //int tabs = tabControl1.TabCount;
+            while (tabControl1.TabCount != 1)
+            {
+            }
+
             foreach (Recipe res in recipeList)
             {
+               
               tabControl1.TabPages.Insert(j++,res.recipeCard);
             }
             tabControl1.SelectedIndex = 0;

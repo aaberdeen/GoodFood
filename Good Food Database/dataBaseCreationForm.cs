@@ -41,13 +41,14 @@ namespace Good_Food_Database
             SQLITE db = new SQLITE(Properties.Settings.Default.fileName);
             db.executeScript("CreateTableScript.txt");
 
-            addSection(db, "Poultry & Game");
-            addSection(db, "Starters, drinks and dips");
+           
+            addSection(db, "Starters, Soups, Salads, Sides");
             addSection(db, "Fish & Seafood");
-            addSection(db, "Soups, Salads, Sides & Drinks");
+            addSection(db, "Poultry & Game");
             addSection(db, "Meat");
             addSection(db, "Vegetarian dishes");
-            addSection(db, "Vegetarian dishes");
+            addSection(db, "Baking & Desserts");
+            addSection(db, "Drinks");
             addSource(db, "BBC Good Food");
 
             this.Close();
